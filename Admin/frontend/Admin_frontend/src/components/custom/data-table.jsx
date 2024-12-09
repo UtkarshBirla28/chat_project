@@ -9,31 +9,52 @@ import {
   TableCaption,
 } from "../ui/table";
 import { useNavigate } from "react-router-dom";
+
 export const DataTable = ({ tableData = [], column = [] }) => {
   const navigate = useNavigate();
   return (
-    <Table>
-      <TableHeader>
-        <TableRow>
-          {column.map((column) => (
-            <TableHead key={column.accessor}>{column.Header}</TableHead>
-          ))}
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {tableData.map((data, index) => (
-          <TableRow
-            onClick={() => {
-              navigate(`/user/${data._id}`);
-            }}
-          >
-            <TableCell key={index}>{data.fullName || "Unknown"}</TableCell>
-            <TableCell key={index}>{data.username || "Unknown"}</TableCell>
-            <TableCell key={index}>{data.gender || "Unknown"}</TableCell>
-            <TableCell key={index}>{data.createdAt || "Unknown"}</TableCell>
+    <div className="overflow-x-auto bg-gradient-to-r from-blue-50 to-indigo-100 p-6 rounded-lg shadow-lg mx-auto my-6 w-full max-w-screen-xl">
+      <Table>
+        <TableCaption className="text-lg text-center text-gray-600 mb-4 font-semibold">
+          User Information
+        </TableCaption>
+        <TableHeader>
+          <TableRow className="bg-gradient-to-r from-indigo-600 to-blue-500 text-white">
+            {column.map((column) => (
+              <TableHead
+                key={column.accessor}
+                className="p-3 text-left text-lg font-semibold"
+              >
+                {column.Header}
+              </TableHead>
+            ))}
           </TableRow>
-        ))}
-      </TableBody>
-    </Table>
+        </TableHeader>
+        <TableBody>
+          {tableData.map((data, index) => (
+            <TableRow
+              key={index}
+              className="cursor-pointer hover:bg-gradient-to-r hover:from-gray-100 hover:to-gray-200 transition-all duration-200"
+              onClick={() => {
+                navigate(`/user/${data._id}`);
+              }}
+            >
+              <TableCell className="p-3 text-gray-800">
+                {data.fullName || "Unknown"}
+              </TableCell>
+              <TableCell className="p-3 text-gray-800">
+                {data.username || "Unknown"}
+              </TableCell>
+              <TableCell className="p-3 text-gray-800">
+                {data.gender || "Unknown"}
+              </TableCell>
+              <TableCell className="p-3 text-gray-800">
+                {data.createdAt || "Unknown"}
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </div>
   );
 };

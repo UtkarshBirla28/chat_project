@@ -4,12 +4,5 @@ import { dashboardColumn } from "../../utils/dashboardColumn";
 
 export const Dashboard = () => {
   const { data, error, loading } = useDashboard();
-  return (
-    <div>
-      <h1 className="text-red-500 text-3xl font-bold underline text-center mb-10">
-        Admin portal
-      </h1>
-      {<DataTable tableData={data} column={dashboardColumn} />}
-    </div>
-  );
+  return <div>{<DataTable tableData={data} column={dashboardColumn} />}</div>;
 };

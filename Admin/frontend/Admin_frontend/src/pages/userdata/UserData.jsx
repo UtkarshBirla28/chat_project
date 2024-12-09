@@ -11,7 +11,6 @@ export const UserData = () => {
   console.log(data);
   return (
     <>
-      <h1 className="text-center text-3xl mb-10"> User Details</h1>
       <UserTable userData={data} userColumn={userTableColumns} />
     </>
   );
