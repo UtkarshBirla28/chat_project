@@ -6,7 +6,7 @@ Created by **Utkarsh Birla** and **Vaishali Ajmera**
 ChatterBox is a modern real-time chat application built using the MERN stack and enhanced with Socket.io, TailwindCSS, and Daisy UI. This app provides seamless real-time messaging with robust authentication and authorization using JWT.
 
 <!-- ![📲 Demo App](https://i.ibb.co/fXmZdnz/Screenshot-10.png) -->
-![Demo App](./frontend/public/images/chat-demo.png)
+![Demo App](Real-time-chat-app/frontend/public/images/chat-demo.png)
 
 
 ## 🔍 Key Features
