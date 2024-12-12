@@ -6,11 +6,18 @@ export const useDashboard = () => {
   const [error, setError] = useState(null); // State for error handling
   const [loading, setLoading] = useState(true); // Loading state
 
+  const token = localStorage.getItem("token");
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/admin/users/all"
+          "http://localhost:8003/api/admin/users/all",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
         setData(response.data); // Save the data to state
       } catch (err) {
@@ -22,5 +29,6 @@ export const useDashboard = () => {
 
     fetchData();
   }, []); // Empty dependency array ensures this runs once on mount
+  console.log(data);
   return { data, error, loading };
 };
