@@ -19,7 +19,7 @@ const SignIn = () => {
 
   useEffect(() => {
     if (data) {
-      localStorage.setItem("token", JSON.stringify(data.token)); // Corrected typo here
+      localStorage.setItem("token", data.token); // Corrected typo here
       console.log("Data stored in localStorage:", data);
       navigate("/dashboard");
     }
