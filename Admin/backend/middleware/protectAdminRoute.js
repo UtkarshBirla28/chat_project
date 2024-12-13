@@ -18,6 +18,6 @@ export const protectRoute = (req, res, next) => {
     console.log("ProtectRoute middleware triggered for:", req.originalUrl);
     next();
   } catch (e) {
-    res.status(403).json({ message: "Invalid token." });
+    return res.status(403).json({ message: "Invalid token." });
   }
 };

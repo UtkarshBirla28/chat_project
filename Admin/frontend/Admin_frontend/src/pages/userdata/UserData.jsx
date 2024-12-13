@@ -6,9 +6,7 @@ import { userTableColumns } from "../../utils/usersColumn";
 
 export const UserData = () => {
   const { id } = useParams();
-  console.log(id);
   const data = useUserData(id);
-  console.log(data);
   return (
     <>
       <UserTable userData={data} userColumn={userTableColumns} />

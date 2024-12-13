@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export const useUserData = (id) => {
   const [userData, setUserData] = useState(); // Default state is null
   const token = localStorage.getItem("token");
-
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchUserById = async () => {
       try {
@@ -19,7 +20,12 @@ export const useUserData = (id) => {
         );
         setUserData(response.data.messages);
       } catch (error) {
-        console.error("Error fetching user data:", error);
+        console.log(error);
+        if (error.status == 401 || error.status == 403) {
+          navigate("/");
+        } else {
+          console.error("Error fetching user data:", error);
+        }
       }
     };
     fetchUserById();
