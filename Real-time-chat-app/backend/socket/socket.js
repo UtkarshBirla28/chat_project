@@ -5,17 +5,12 @@ import express from "express";
 const app = express();
 const server = http.createServer(app);
 
-// Allowed browser origins for websocket connections. Local dev ports plus
-// the production frontend (set CLIENT_URL on Render to your Vercel domain).
-const allowedOrigins = [
-	"http://localhost:3000",
-	"http://localhost:5173",
-	process.env.CLIENT_URL,
-].filter(Boolean);
-
+// Reflect the request origin so the socket connects from any frontend
+// domain (Vercel preview + production) without hardcoding the URL. Token
+// auth on the REST layer is what actually guards the data.
 const io = new Server(server, {
 	cors: {
-		origin: allowedOrigins,
+		origin: true,
 		methods: ["GET", "POST"],
 		credentials: true,
 	},
