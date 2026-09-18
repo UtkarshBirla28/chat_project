@@ -3,7 +3,7 @@ import Sidebar from "../../components/sidebar/Sidebar";
 
 const Home = () => {
 	return (
-		<div className='flex sm:h-[450px] md:h-[550px] rounded-lg overflow-hidden bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-0'>
+		<div className="animate-rise glass flex h-[85vh] max-h-[640px] w-full max-w-4xl overflow-hidden rounded-2xl shadow-2xl">
 			<Sidebar />
 			<MessageContainer />
 		</div>

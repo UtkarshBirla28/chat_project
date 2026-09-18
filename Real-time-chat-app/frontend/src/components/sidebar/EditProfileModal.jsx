@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useAuthContext } from "../../context/AuthContext";
 import toast from "react-hot-toast";
+import { apiFetch } from "../../lib/api";
 
 const EditProfileModal = ({ isOpen, onClose }) => {
     const { authUser, setAuthUser } = useAuthContext();
@@ -56,7 +57,7 @@ const EditProfileModal = ({ isOpen, onClose }) => {
 
         try {
             setLoading(true);
-            const res = await fetch("/api/users/update", {
+            const res = await apiFetch("/api/users/update", {
                 method: "PATCH",
                 body: changedFields
             });
@@ -66,8 +67,10 @@ const EditProfileModal = ({ isOpen, onClose }) => {
                 throw new Error(data.error);
             }
 
-            setAuthUser(data);
-            localStorage.setItem("chat-user", JSON.stringify(data));
+            // Preserve the auth token (the update response doesn't include it).
+            const merged = { ...data, token: authUser.token };
+            setAuthUser(merged);
+            localStorage.setItem("chat-user", JSON.stringify(merged));
             toast.success("Profile updated successfully");
             onClose();
         } catch (error) {

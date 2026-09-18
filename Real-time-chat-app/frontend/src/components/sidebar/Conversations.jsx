@@ -1,39 +1,21 @@
 import useGetConversations from "../../hooks/useGetConversations";
-import { getRandomEmoji } from "../../utils/emojis";
 import Conversation from "./Conversation";
 
 const Conversations = () => {
 	const { loading, conversations } = useGetConversations();
 	return (
-		<div className='py-2 flex flex-col overflow-auto'>
-			{conversations.map((conversation, idx) => (
-				<Conversation
-					key={conversation._id}
-					conversation={conversation}
-					emoji={getRandomEmoji()}
-					lastIdx={idx === conversations.length - 1}
-				/>
+		<div className="flex flex-1 flex-col gap-1 overflow-auto pr-1">
+			{conversations.map((conversation) => (
+				<Conversation key={conversation._id} conversation={conversation} />
 			))}
 
-			{loading ? <span className='loading loading-spinner mx-auto'></span> : null}
+			{loading && (
+				<span className="loading loading-spinner mx-auto mt-4 text-primary"></span>
+			)}
+			{!loading && conversations.length === 0 && (
+				<p className="mt-6 text-center text-sm text-base-content/40">No users yet</p>
+			)}
 		</div>
 	);
 };
 export default Conversations;
-
-// STARTER CODE SNIPPET
-// import Conversation from "./Conversation";
-
-// const Conversations = () => {
-// 	return (
-// 		<div className='py-2 flex flex-col overflow-auto'>
-// 			<Conversation />
-// 			<Conversation />
-// 			<Conversation />
-// 			<Conversation />
-// 			<Conversation />
-// 			<Conversation />
-// 		</div>
-// 	);
-// };
-// export default Conversations;

@@ -2,51 +2,54 @@ import { useSocketContext } from "../../context/SocketContext";
 import useConversation from "../../zustand/useConversation";
 import useNotificationStore from "../../zustand/useNotificationStore";
 
-const Conversation = ({ conversation, lastIdx, emoji }) => {
-    const { selectedConversation, setSelectedConversation } = useConversation();
-    const { notifications, clearNotifications } = useNotificationStore();
-    const { onlineUsers } = useSocketContext();
+const Conversation = ({ conversation }) => {
+	const { selectedConversation, setSelectedConversation } = useConversation();
+	const { notifications, clearNotifications } = useNotificationStore();
+	const { onlineUsers } = useSocketContext();
 
-    const isSelected = selectedConversation?._id === conversation._id;
-    const isOnline = onlineUsers.includes(conversation._id);
-    const unreadCount = notifications[conversation._id] || 0;
+	const isSelected = selectedConversation?._id === conversation._id;
+	// onlineUsers are string socket-map keys; conversation._id is a number.
+	const isOnline = onlineUsers.includes(String(conversation._id));
+	const unreadCount = notifications[conversation._id] || 0;
 
-    const handleSelectConversation = () => {
-        setSelectedConversation(conversation);
-        clearNotifications(conversation._id);
-    };
+	const handleSelectConversation = () => {
+		setSelectedConversation(conversation);
+		clearNotifications(conversation._id);
+	};
 
-    return (
-        <>
-            <div
-                className={`flex gap-2 items-center hover:bg-sky-500 rounded p-2 py-1 cursor-pointer
-                ${isSelected ? "bg-sky-500" : ""}`}
-                onClick={handleSelectConversation}
-            >
-                <div className={`avatar ${isOnline ? "online" : ""}`}>
-                    <div className='w-12 rounded-full'>
-                        <img src={conversation.profilePic} alt='user avatar' />
-                    </div>
-                </div>
+	return (
+		<div
+			className={`flex cursor-pointer items-center gap-3 rounded-xl p-2 transition-colors ${
+				isSelected ? "bg-primary/20 ring-1 ring-primary/40" : "hover:bg-white/5"
+			}`}
+			onClick={handleSelectConversation}
+		>
+			<div className="relative shrink-0">
+				<img
+					src={conversation.profilePic}
+					alt="user avatar"
+					className="h-11 w-11 rounded-full object-cover"
+				/>
+				{isOnline && (
+					<span className="absolute bottom-0 right-0 h-3 w-3 rounded-full border-2 border-base-300 bg-success" />
+				)}
+			</div>
 
-                <div className='flex flex-col flex-1'>
-                    <div className='flex gap-3 justify-between items-center'>
-                        <p className='font-bold text-gray-200'>{conversation.fullName}</p>
-                        <div className='flex items-center gap-2'>
-                            {unreadCount > 0 && (
-                                <span className='bg-green-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs'>
-                                    {unreadCount}
-                                </span>
-                            )}
-                            <span className='text-xl'>{emoji}</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {!lastIdx && <div className='divider my-0 py-0 h-1' />}
-        </>
-    );
+			<div className="min-w-0 flex-1">
+				<div className="flex items-center justify-between gap-2">
+					<p className="truncate font-semibold text-base-content/90">{conversation.fullName}</p>
+					{unreadCount > 0 && (
+						<span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-primary px-1.5 text-xs font-semibold text-white">
+							{unreadCount}
+						</span>
+					)}
+				</div>
+				<p className="truncate text-xs text-base-content/50">
+					{isOnline ? "Online" : "Offline"}
+				</p>
+			</div>
+		</div>
+	);
 };
 
 export default Conversation;
