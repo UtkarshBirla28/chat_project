@@ -20,7 +20,7 @@ const MessageContainer = () => {
 			) : (
 				<>
 					{/* Header */}
-					<div className='flex items-center gap-3 border-b border-white/10 bg-base-300/40 px-4 py-3'>
+					<div className='flex items-center gap-3 border-b border-white/10 glass-inner px-4 py-3'>
 						<img
 							src={selectedConversation.profilePic}
 							alt='avatar'

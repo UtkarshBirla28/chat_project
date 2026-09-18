@@ -12,7 +12,7 @@ const Sidebar = () => {
 	useListenMessages();
 
 	return (
-		<div className="flex w-[240px] shrink-0 flex-col border-r border-white/10 bg-base-300/40 p-3 md:w-[280px]">
+		<div className="flex w-[240px] shrink-0 flex-col border-r border-white/10 glass-inner p-3 md:w-[280px]">
 			{/* Profile */}
 			<button
 				className="group flex items-center gap-3 rounded-xl p-2 text-left transition-colors hover:bg-white/5"
